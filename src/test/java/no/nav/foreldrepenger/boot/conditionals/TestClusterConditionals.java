@@ -17,6 +17,8 @@ public class TestClusterConditionals {
         new ApplicationContextRunner().withUserConfiguration(Config.class)
                 .run(context -> {
                     assertThat(context).hasBean("local");
+                    assertThat(context).doesNotHaveBean("dev");
+                    assertThat(context).doesNotHaveBean("fss");
                     assertThat(context.getBean("local")).isEqualTo("local");
                 });
     }
@@ -27,6 +29,7 @@ public class TestClusterConditionals {
                 .withUserConfiguration(Config.class)
                 .run(context -> {
                     assertThat(context).hasBean("dev");
+                    assertThat(context).doesNotHaveBean("local");
                     assertThat(context.getBean("dev")).isEqualTo("dev");
                 });
     }
@@ -37,6 +40,7 @@ public class TestClusterConditionals {
                 .withUserConfiguration(Config.class)
                 .run(context -> {
                     assertThat(context).hasBean("fss");
+                    assertThat(context).doesNotHaveBean("local");
                     assertThat(context.getBean("fss")).isEqualTo("fss");
                 });
     }
