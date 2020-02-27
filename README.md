@@ -29,7 +29,7 @@ public class ProdFunksjonalitet implements Funksjonalitet {
   }
 }
 ~~~~
-En bean som trenger en implementasjon av Funksjonalitet kan da få denne injisert på vanlig måte:
+En bean som trenger en implementasjon av Funksjonalitet kan da få denne injisert på vanlig måte, i prod blir det ProdFunksjonalitet, i dev NyFunksjonalitet:
 ~~~~
 @Bean
 public class BeanSomTrengerFunksjonalitet {
