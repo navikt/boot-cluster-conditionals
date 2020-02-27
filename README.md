@@ -14,7 +14,7 @@ public interface Funksjonalitet {
 @ConditionalOnNotProd
 @Bean
 public class NyFunksjonalitet implements Funksjonalitet {
-@Override
+  @Override
   void doStuff() {
      // ny logikk
   }
@@ -23,7 +23,7 @@ public class NyFunksjonalitet implements Funksjonalitet {
 @ConditionalOnProd
 @Bean
 public class ProdFunksjonalitet implements Funksjonalitet {
-@Override
+  @Override
   void doStuff() {
      LOG.info("Doing stuff, but not really");
   }
