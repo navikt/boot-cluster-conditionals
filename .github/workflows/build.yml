@@ -17,10 +17,13 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.11
+      - name: Hent tag    
+        run: echo "::set-env name=TAG::$(git log -1 --pretty='%ad' --date=format:'%Y%m%d%H%M%S')-$(echo $GITHUB_SHA | cut -c1-7)"  
+       
       - name: Build & Deploy
         shell: bash
         run: |
-          set -x
+          mvn versions:set -B -DnewVersion=1.0.$TAG	
           echo "Building $(echo $GITHUB_SHA | cut -c1-7)"
           mvn deploy -Dmaven.wagon.http.pool=false -e --batch-mode --settings ./.m2/settings.xml 
           echo "::set-env name=MVN_VERSION::$(mvn help:evaluate --batch-mode --settings ./.m2/settings.xml  -Dexpression=project.version -q -DforceStdout)"
