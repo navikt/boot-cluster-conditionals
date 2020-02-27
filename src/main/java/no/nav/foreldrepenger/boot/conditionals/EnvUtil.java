@@ -25,11 +25,11 @@ public final class EnvUtil {
         return isLocal(env) || isDev(env);
     }
 
-    private static boolean isDev(Environment env) {
+    public static boolean isDev(Environment env) {
         return env.acceptsProfiles(Profiles.of(DEV_SBS, DEV_GCP, DEV_FSS));
     }
 
-    private static boolean isLocal(Environment env) {
+    public static boolean isLocal(Environment env) {
         return (env == null) || env.acceptsProfiles(Profiles.of(LOCAL));
     }
 }
