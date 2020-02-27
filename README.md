@@ -3,7 +3,7 @@ Det kan ofte være nyttig å benytte forskjellige implementasjonsklasser i dev o
 Spring tilbyr imidlertid mekanismer for  [Branch By Abstraction](https://martinfowler.com/bliki/BranchByAbstraction.html) gjennom annoteringer og dette biblioteket tilbyr noen utvidelser som gjør at man slipper å kjøre slalom i koden basert på properties eller annet. 
 Dette gjør det enklere å implementere [Conditional Bean Registration](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-condition-annotations
 ).
-
+Dette kan enkelt utvides til også å ta hensyn til namespace, PRs welcome :-)
 Typisk bruk :
 ~~~~
 
