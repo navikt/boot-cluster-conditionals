@@ -1,5 +1,7 @@
 package no.nav.foreldrepenger.boot.conditionals;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -14,6 +16,7 @@ public enum Cluster {
     PROD_SBS(EnvUtil.PROD_SBS);
 
     public static final String NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME";
+    public static final String NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE_NAME";
 
     private static final Logger LOG = LoggerFactory.getLogger(Cluster.class);
 
@@ -27,7 +30,32 @@ public enum Cluster {
         return clusterName;
     }
 
-    public boolean isActive(Environment env) {
+    public boolean isActive(Environment env, String[] namespaceNames) {
+
+        return isClusterActive(env)
+                && isNamespaceActive(env, namespaceNames);
+    }
+
+    private boolean isNamespaceActive(Environment env, String[] namespaceNames) {
+        var namespace = namespace(env);
+        LOG.info("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
+        if (namespaceNames.length == 0) {
+            return true;
+        }
+
+        var aktiv = Arrays.stream(namespaceNames)
+                .filter(n -> n.equals(namespace))
+                .findAny();
+        LOG.info("Namespace {} i {} er {}", namespace, clusterName(), aktiv.isPresent() ? "aktivt" : "ikke aktivt");
+
+        return aktiv.isPresent();
+    }
+
+    private String namespace(Environment env) {
+        return env.getProperty(NAIS_NAMESPACE_NAME);
+    }
+
+    public boolean isClusterActive(Environment env) {
         var aktiv = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL).equals(clusterName);
         if (!aktiv) {
             LOG.info("Cluster {} er {}", clusterName(), aktiv ? "aktivt" : "ikke aktivt");
@@ -66,4 +94,5 @@ public enum Cluster {
     public static Cluster[] local() {
         return new Cluster[] { LOCAL };
     }
+
 }

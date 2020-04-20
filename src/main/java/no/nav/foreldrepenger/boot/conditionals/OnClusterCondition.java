@@ -18,12 +18,13 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class OnClusterCondition extends SpringBootCondition {
 
     @Override
-    public ConditionOutcome getMatchOutcome(ConditionContext ctx, AnnotatedTypeMetadata metadata) {
+    public ConditionOutcome getMatchOutcome(ConditionContext ctx, AnnotatedTypeMetadata md) {
+
         var message = forCondition(ConditionalOnClusters.class);
-        var clusters = clusters(metadata);
+        var clusters = clusters(md);
 
         return safeStream(clusters)
-                .filter(c -> c.isActive(ctx.getEnvironment()))
+                .filter(c -> c.isActive(ctx.getEnvironment(), namespaces(md)))
                 .map(c -> match(message.foundExactly(c.clusterName())))
                 .findFirst()
                 .orElseGet(() -> noMatch(message.because(Arrays.toString(clusters))));
@@ -31,6 +32,14 @@ public class OnClusterCondition extends SpringBootCondition {
 
     protected Cluster[] clusters(AnnotatedTypeMetadata md) {
         return Cluster[].class.cast(md.getAnnotationAttributes(ConditionalOnClusters.class.getName()).get("clusters"));
+    }
+
+    private String[] namespaces(AnnotatedTypeMetadata md) {
+        var a = md.getAnnotationAttributes(ConditionalOnClusters.class.getName());
+        if (a != null) {
+            return (String[]) a.get("namespaces");
+        }
+        return new String[0];
     }
 
     private static <T> Stream<T> safeStream(T... elems) {

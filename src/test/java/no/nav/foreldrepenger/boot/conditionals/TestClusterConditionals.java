@@ -1,6 +1,7 @@
 package no.nav.foreldrepenger.boot.conditionals;
 
 import static no.nav.foreldrepenger.boot.conditionals.Cluster.NAIS_CLUSTER_NAME;
+import static no.nav.foreldrepenger.boot.conditionals.Cluster.NAIS_NAMESPACE_NAME;
 import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV_FSS;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,8 +41,25 @@ public class TestClusterConditionals {
                 .withUserConfiguration(Config.class)
                 .run(context -> {
                     assertThat(context).hasBean("fss");
+                    assertThat(context).doesNotHaveBean("fsst1");
+                    assertThat(context).doesNotHaveBean("fsst4");
                     assertThat(context).doesNotHaveBean("local");
                     assertThat(context.getBean("fss")).isEqualTo("fss");
+                });
+    }
+
+    @Test
+    public void fsst4() {
+        new ApplicationContextRunner()
+                .withPropertyValues(NAIS_CLUSTER_NAME + "=" + DEV_FSS, NAIS_NAMESPACE_NAME + "=" + "t4")
+                .withUserConfiguration(Config.class)
+                .run(context -> {
+                    assertThat(context).hasBean("fss");
+                    assertThat(context).hasBean("fsst4");
+                    assertThat(context).doesNotHaveBean("local");
+                    assertThat(context).doesNotHaveBean("fsst1");
+                    assertThat(context.getBean("fss")).isEqualTo("fss");
+                    assertThat(context.getBean("fsst4")).isEqualTo("fsst4");
                 });
     }
 }
