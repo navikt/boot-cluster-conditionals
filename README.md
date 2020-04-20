@@ -2,9 +2,7 @@
 Det kan ofte være nyttig å benytte forskjellige implementasjonsklasser i dev og prod, spesielt under utvikling av ny funksjonalitet, hvor man ønsker at applikasjonen skal være "deploybar", selv om funksjonaliteten ennå ikke er produksjonsklar. Den tradisjonelle løsningen på dette er antagelig feature toggles eller ad-hoc deteksjon av cluster/namespace.
 Spring tilbyr imidlertid mekanismer for  [Branch By Abstraction](https://martinfowler.com/bliki/BranchByAbstraction.html) gjennom annoteringer og dette biblioteket tilbyr noen utvidelser som gjør at man slipper å kjøre slalom i koden basert på properties eller annet. 
 Dette gjør det enklere å implementere [Conditional Bean Registration](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-condition-annotations
-).
-Dette kan enkelt utvides til også å ta hensyn til namespace, PRs welcome :-)
-Typisk bruk :
+). Typisk bruk :
 ~~~~
 
 public interface Funksjonalitet {
