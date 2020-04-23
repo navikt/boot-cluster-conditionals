@@ -30,13 +30,13 @@ public enum Cluster {
         return clusterName;
     }
 
-    public boolean isActive(Environment env, String[] namespaceNames) {
+    public boolean isActive(Environment env, String... namespaceNames) {
 
         return isClusterActive(env)
                 && isNamespaceActive(env, namespaceNames);
     }
 
-    private boolean isNamespaceActive(Environment env, String[] namespaceNames) {
+    private boolean isNamespaceActive(Environment env, String... namespaceNames) {
         var namespace = namespace(env);
         LOG.info("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
         if (namespaceNames.length == 0) {
@@ -57,8 +57,8 @@ public enum Cluster {
 
     public boolean isClusterActive(Environment env) {
         var aktiv = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL).equals(clusterName);
-        if (!aktiv) {
-            LOG.info("Cluster {} er {}", clusterName(), aktiv ? "aktivt" : "ikke aktivt");
+        if (aktiv) {
+            LOG.debug("Cluster {} er aktivt", clusterName());
         }
         return aktiv;
     }
