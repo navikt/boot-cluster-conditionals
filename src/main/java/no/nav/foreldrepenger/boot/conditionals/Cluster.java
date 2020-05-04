@@ -38,7 +38,7 @@ public enum Cluster {
 
     private boolean isNamespaceActive(Environment env, String... namespaceNames) {
         var namespace = namespace(env);
-        LOG.info("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
+        LOG.trace("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
         if (namespaceNames.length == 0) {
             return true;
         }
@@ -46,7 +46,7 @@ public enum Cluster {
         var aktiv = Arrays.stream(namespaceNames)
                 .filter(n -> n.equals(namespace))
                 .findAny();
-        LOG.info("Namespace {} i {} er {}", namespace, clusterName(), aktiv.isPresent() ? "aktivt" : "ikke aktivt");
+        LOG.trace("Namespace {} i {} er {}", namespace, clusterName(), aktiv.isPresent() ? "aktivt" : "ikke aktivt");
 
         return aktiv.isPresent();
     }
@@ -58,7 +58,7 @@ public enum Cluster {
     public boolean isClusterActive(Environment env) {
         var aktiv = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL).equals(clusterName);
         if (aktiv) {
-            LOG.debug("Cluster {} er aktivt", clusterName());
+            LOG.trace("Cluster {} er aktivt", clusterName());
         }
         return aktiv;
     }
