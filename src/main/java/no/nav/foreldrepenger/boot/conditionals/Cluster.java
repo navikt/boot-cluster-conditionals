@@ -16,7 +16,7 @@ public enum Cluster {
     PROD_SBS(EnvUtil.PROD_SBS);
 
     public static final String NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME";
-    public static final String NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE_NAME";
+    public static final String NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE";
 
     private static final Logger LOG = LoggerFactory.getLogger(Cluster.class);
 
