@@ -84,7 +84,7 @@ public enum Cluster {
     }
 
     public static Cluster[] k8sClusters() {
-        return new Cluster[] { DEV_SBS, DEV_FSS, DEV_GCP, PROD_SBS, PROD_GCP };
+        return new Cluster[] { DEV_SBS, DEV_FSS, DEV_GCP, PROD_FSS, PROD_SBS, PROD_GCP };
     }
 
     public static Cluster[] gcpClusters() {
