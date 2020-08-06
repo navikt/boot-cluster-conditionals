@@ -6,16 +6,18 @@ import org.springframework.core.env.Profiles;
 public final class EnvUtil {
 
     public static final String TEST = "test";
-    public static final String DEV_GCP = "dev-gcp";
-    public static final String PROD_GCP = "prod-gcp";
+    public static final String DEV = "dev";
+    public static final String PROD = "prod";
+    public static final String DEV_GCP = DEV + "-gcp";
+    public static final String PROD_GCP = PROD + "-gcp";
 
     public static final String LOCAL = "local";
     public static final String DEFAULT = "default";
 
-    public static final String PROD_SBS = "prod-sbs";
-    public static final String DEV_SBS = "dev-sbs";
-    public static final String PROD_FSS = "prod-fss";
-    public static final String DEV_FSS = "dev-fss";
+    public static final String PROD_SBS = PROD + "-sbs";
+    public static final String DEV_SBS = DEV + "-sbs";
+    public static final String PROD_FSS = PROD + "-fss";
+    public static final String DEV_FSS = DEV + "-fss";
 
     private EnvUtil() {
 
