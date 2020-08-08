@@ -1,5 +1,9 @@
 package no.nav.foreldrepenger.boot.conditionals;
 
+import static java.lang.System.getenv;
+import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV;
+import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.PROD;
+
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -38,11 +42,10 @@ public enum Cluster {
 
     private boolean isNamespaceActive(Environment env, String... namespaceNames) {
         var namespace = namespace(env);
-        LOG.trace("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
         if (namespaceNames.length == 0) {
             return true;
         }
-
+        LOG.trace("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
         var aktiv = Arrays.stream(namespaceNames)
                 .filter(n -> n.equals(namespace))
                 .findAny();
@@ -51,16 +54,43 @@ public enum Cluster {
         return aktiv.isPresent();
     }
 
-    private String namespace(Environment env) {
+    private static String namespace(Environment env) {
         return env.getProperty(NAIS_NAMESPACE_NAME);
     }
 
-    public boolean isClusterActive(Environment env) {
-        var aktiv = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL).equals(clusterName);
-        if (aktiv) {
-            LOG.trace("Cluster {} er aktivt", clusterName());
+    public static String[] profiler() {
+        return profilerFraCluster(getenv(NAIS_CLUSTER_NAME));
+    }
+
+    private static String[] profilerFraCluster(String cluster) {
+        if (cluster == null) {
+            LOG.info("NAIS cluster ikke detektert, antar {}", LOCAL);
+            System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL);
+            return new String[] { EnvUtil.LOCAL };
         }
-        return aktiv;
+        if (cluster.equals(EnvUtil.DEV_SBS)) {
+            return new String[] { DEV, EnvUtil.DEV_SBS };
+        }
+        if (cluster.equals(EnvUtil.DEV_GCP)) {
+            return new String[] { DEV, EnvUtil.DEV_GCP };
+        }
+        if (cluster.equals(EnvUtil.PROD_GCP)) {
+            return new String[] { PROD, EnvUtil.PROD_GCP };
+        }
+        if (cluster.equals(EnvUtil.PROD_SBS)) {
+            return new String[] { PROD, EnvUtil.PROD_SBS };
+        }
+        if (cluster.equals(EnvUtil.DEV_FSS)) {
+            return new String[] { DEV, EnvUtil.DEV_FSS };
+        }
+        if (cluster.equals(EnvUtil.PROD_FSS)) {
+            return new String[] { DEV, EnvUtil.PROD_FSS };
+        }
+        throw new IllegalArgumentException("Cluster " + cluster + " er ikke støttet");
+    }
+
+    public boolean isClusterActive(Environment env) {
+        return env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL).equals(clusterName);
     }
 
     public static Cluster[] prodClusters() {
