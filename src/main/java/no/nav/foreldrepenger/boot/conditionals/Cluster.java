@@ -84,7 +84,7 @@ public enum Cluster {
             return new String[] { DEV, EnvUtil.DEV_FSS };
         }
         if (cluster.equals(EnvUtil.PROD_FSS)) {
-            return new String[] { DEV, EnvUtil.PROD_FSS };
+            return new String[] { PROD, EnvUtil.PROD_FSS };
         }
         throw new IllegalArgumentException("Cluster " + cluster + " er ikke støttet");
     }
