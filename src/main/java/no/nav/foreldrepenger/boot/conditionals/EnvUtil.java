@@ -1,9 +1,13 @@
 package no.nav.foreldrepenger.boot.conditionals;
 
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
 public final class EnvUtil {
+
+    public static final Marker CONFIDENTIAL = MarkerFactory.getMarker("CONFIDENTIAL");
 
     public static final String TEST = "test";
     public static final String DEV = "dev";
