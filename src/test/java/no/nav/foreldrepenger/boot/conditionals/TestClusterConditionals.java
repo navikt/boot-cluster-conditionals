@@ -17,6 +17,7 @@ public class TestClusterConditionals {
     public void local() {
         new ApplicationContextRunner().withUserConfiguration(Config.class)
                 .run(context -> {
+
                     assertThat(context).hasBean("local");
                     assertThat(context).doesNotHaveBean("dev");
                     assertThat(context).doesNotHaveBean("fss");
