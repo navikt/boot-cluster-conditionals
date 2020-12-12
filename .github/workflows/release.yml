@@ -27,15 +27,11 @@ jobs:
       - name: Publish artifact
         env:
           NEW_VERSION: ${{ github.event.release.tag_name }}
-          MYREPO: ${{ github.event.repository.name }}
+          REPO_NAME: ${{ github.event.repository.name }}
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        # The GITHUB_REF tag comes in the format 'refs/tags/xxx'.
-        # So if we split on '/' and take the 3rd value, we can get the release name.
         run: |
-          REPO_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
           echo "-- Setting new release version ${NEW_VERSION} for ${REPO_NAME} --"
-          echo "-- XX Setting new release version ${NEW_VERSION} for ${MYREPO} --"
           mvn -B versions:set -DnewVersion="${NEW_VERSION}" -DgenerateBackupPoms=false
           echo "-- Build, test and deploy release to GPR --"
           mvn -B --settings .m2/settings.xml clean deploy -Dmaven.wagon.http.pool=false
