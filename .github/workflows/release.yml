@@ -9,13 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Dump env
-        run: env | sort
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-        
+            
       - name: Checkout latest code
         uses: actions/checkout@v2
 
@@ -31,6 +25,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+            
       - name: Publish artifact
         env:
           NEW_VERSION: ${{ github.event.release.tag_name }}
