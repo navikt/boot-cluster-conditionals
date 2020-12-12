@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Publish artifact
         env:
-          VERSION: ${{ steps.drafter.outputs.tag_name }}
+          VERSION: ${{ ${{ github.event.tag_name }}
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         # The GITHUB_REF tag comes in the format 'refs/tags/xxx'.
