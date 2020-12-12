@@ -10,7 +10,6 @@ public interface Funksjonalitet {
 }
 
 @ConditionalOnNotProd
-@Bean
 public class NyFunksjonalitet implements Funksjonalitet {
   @Override
   void doStuff() {
@@ -19,7 +18,6 @@ public class NyFunksjonalitet implements Funksjonalitet {
 }
 
 @ConditionalOnProd
-@Bean
 public class ProdFunksjonalitet implements Funksjonalitet {
   @Override
   void doStuff() {
