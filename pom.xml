@@ -30,6 +30,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
+<scm>
+        <connection>scm:git:https://github.com/navikt/boot-cluster-conditionals.git</connection>
+        <developerConnection>scm:git:https://github.com/navikt/boot-cluster-conditionals.git
+        </developerConnection>
+        <tag>HEAD</tag>
+
+</scm>
     <build>
         <plugins>
 <plugin>
