@@ -33,6 +33,9 @@
         <developerConnection>scm:git:https://github.com/navikt/boot-cluster-conditionals.git
         </developerConnection>
         <tag>HEAD</tag>
+     <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+     </properties>
 
 </scm>
     <build>
