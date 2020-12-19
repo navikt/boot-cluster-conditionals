@@ -39,7 +39,3 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions release"
           mvn --settings .m2/settings.xml --batch-mode release:prepare release:perform
-          -- echo "-- Setting new release version ${NEW_VERSION} for ${REPO_NAME} --"
-          -- mvn -B versions:set -DnewVersion="${NEW_VERSION}" -DgenerateBackupPoms=false
-          -- echo "-- Build, test and deploy release to GPR --"
-          -- mvn -B --settings .m2/settings.xml clean deploy -Dmaven.wagon.http.pool=false
