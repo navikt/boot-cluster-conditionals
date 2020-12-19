@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.nav.foreldrepenger</groupId>
     <artifactId>boot-conditionals</artifactId>
-    <version>1.1.11-SNAPSHOT</version>
+    <version>1.1.12-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
