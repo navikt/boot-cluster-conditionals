@@ -14,6 +14,4 @@ import org.springframework.context.annotation.Conditional;
 @Conditional(OnClusterCondition.class)
 public @interface ConditionalOnClusters {
     Cluster[] clusters();
-
-    String[] namespaces();
 }

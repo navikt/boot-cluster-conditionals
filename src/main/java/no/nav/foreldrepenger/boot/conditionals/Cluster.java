@@ -4,8 +4,6 @@ import static java.lang.System.getenv;
 import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV;
 import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.PROD;
 
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -35,28 +33,8 @@ public enum Cluster {
         return clusterName;
     }
 
-    public boolean isActive(Environment env, String... namespaceNames) {
-
-        return isClusterActive(env)
-                && isNamespaceActive(env, namespaceNames);
-    }
-
-    private boolean isNamespaceActive(Environment env, String... namespaceNames) {
-        var namespace = namespace(env);
-        if (namespaceNames.length == 0) {
-            return true;
-        }
-        LOG.trace("Sjekker om current namespace {} er blant {}", namespace, Arrays.toString(namespaceNames));
-        var aktiv = Arrays.stream(namespaceNames)
-                .filter(n -> n.equals(namespace))
-                .findAny();
-        LOG.trace("Namespace {} i {} er {}", namespace, clusterName(), aktiv.isPresent() ? "aktivt" : "ikke aktivt");
-
-        return aktiv.isPresent();
-    }
-
-    private static String namespace(Environment env) {
-        return env.getProperty(NAIS_NAMESPACE_NAME);
+    public boolean isActive(Environment env) {
+        return isClusterActive(env);
     }
 
     public static String[] profiler() {
@@ -91,7 +69,6 @@ public enum Cluster {
         if (cluster.equals(EnvUtil.PROD_FSS)) {
             return new String[] { PROD, EnvUtil.PROD_FSS };
         }
-        System.setProperty(NAIS_CLUSTER_NAME, cluster);
         return new String[] { cluster };
     }
 

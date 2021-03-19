@@ -24,7 +24,7 @@ public class OnClusterCondition extends SpringBootCondition {
         var clusters = clusters(md);
 
         return safeStream(clusters)
-                .filter(c -> c.isActive(ctx.getEnvironment(), namespaces(md)))
+                .filter(c -> c.isActive(ctx.getEnvironment()))
                 .map(c -> match(message.foundExactly(c.clusterName())))
                 .findFirst()
                 .orElseGet(() -> noMatch(message.because(Arrays.toString(clusters))));
@@ -32,13 +32,6 @@ public class OnClusterCondition extends SpringBootCondition {
 
     protected Cluster[] clusters(AnnotatedTypeMetadata md) {
         return Cluster[].class.cast(md.getAnnotationAttributes(ConditionalOnClusters.class.getName()).get("clusters"));
-    }
-
-    private static String[] namespaces(AnnotatedTypeMetadata md) {
-        return Optional.ofNullable(md.getAnnotationAttributes(ConditionalOnClusters.class.getName()))
-                .map(a -> a.get("namespaces"))
-                .map(String[].class::cast)
-                .orElse(new String[0]);
     }
 
     private static <T> Stream<T> safeStream(T... elems) {

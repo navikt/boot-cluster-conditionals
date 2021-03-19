@@ -29,16 +29,4 @@ class Config {
     public String fss() {
         return "fss";
     }
-
-    @ConditionalOnClusters(clusters = Cluster.DEV_FSS, namespaces = "t4")
-    @Bean
-    public String fsst4() {
-        return "fsst4";
-    }
-
-    @ConditionalOnClusters(clusters = Cluster.DEV_FSS, namespaces = "t1")
-    @Bean
-    public String fsst1() {
-        return "fsst1";
-    }
 }
