@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 public enum Cluster {
+    TEST(EnvUtil.TEST),
     LOCAL(EnvUtil.LOCAL),
     DEV_SBS(EnvUtil.DEV_SBS),
     DEV_FSS(EnvUtil.DEV_FSS),
@@ -68,6 +69,10 @@ public enum Cluster {
             System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL);
             return new String[] { EnvUtil.LOCAL };
         }
+        if (cluster.equals(EnvUtil.TEST)) {
+            System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.TEST);
+            return new String[] { EnvUtil.TEST };
+        }
         if (cluster.equals(EnvUtil.DEV_SBS)) {
             return new String[] { DEV, EnvUtil.DEV_SBS };
         }
@@ -86,6 +91,7 @@ public enum Cluster {
         if (cluster.equals(EnvUtil.PROD_FSS)) {
             return new String[] { PROD, EnvUtil.PROD_FSS };
         }
+        System.setProperty(NAIS_CLUSTER_NAME, cluster);
         return new String[] { cluster };
     }
 
