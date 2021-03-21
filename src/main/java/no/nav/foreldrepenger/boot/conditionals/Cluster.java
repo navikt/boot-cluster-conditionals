@@ -21,9 +21,9 @@ public enum Cluster {
     PROD_FSS(EnvUtil.PROD_FSS),
     PROD_SBS(EnvUtil.PROD_SBS);
 
-    public static final String NAIS_CLUSTER_NAME = "nais.cluster.name";
-    public static final String NAIS_NAMESPACE_NAME = "nais.namespace";
-    public static final String NAIS_IMAGE_NAME = "nais.app.image";
+    public static final String NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME";
+    public static final String NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE";
+    public static final String NAIS_IMAGE_NAME = "NAIS_APP_IMAGE";
 
     private static final Logger LOG = LoggerFactory.getLogger(Cluster.class);
 
