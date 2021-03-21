@@ -4,6 +4,9 @@ import static java.lang.System.getenv;
 import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV;
 import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.PROD;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -18,8 +21,9 @@ public enum Cluster {
     PROD_FSS(EnvUtil.PROD_FSS),
     PROD_SBS(EnvUtil.PROD_SBS);
 
-    public static final String NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME";
-    public static final String NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE";
+    public static final String NAIS_CLUSTER_NAME = "nais.cluster.name";
+    public static final String NAIS_NAMESPACE_NAME = "nais.namespace";
+    public static final String NAIS_IMAGE_NAME = "nais.app.image";
 
     private static final Logger LOG = LoggerFactory.getLogger(Cluster.class);
 
@@ -33,12 +37,33 @@ public enum Cluster {
         return clusterName;
     }
 
+    public static String currentNamespace() {
+        return Optional.ofNullable(namespace())
+                .orElse("default");
+    }
+
+    public static Cluster currentCluster() {
+        String name = cluster();
+        return Arrays.stream(values())
+                .filter(e -> e.clusterName.equals(name))
+                .findFirst()
+                .orElseGet(() -> Cluster.LOCAL);
+    }
+
     public boolean isActive(Environment env) {
         return isClusterActive(env);
     }
 
     public static String[] profiler() {
-        return profilerFraCluster(getenv(NAIS_CLUSTER_NAME));
+        return profilerFraCluster(cluster());
+    }
+
+    private static String cluster() {
+        return getenv(NAIS_CLUSTER_NAME);
+    }
+
+    private static String namespace() {
+        return getenv(NAIS_NAMESPACE_NAME);
     }
 
     private static String[] profilerFraCluster(String cluster) {
@@ -47,6 +72,7 @@ public enum Cluster {
             System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL);
             return new String[] { EnvUtil.LOCAL };
         }
+
         if (cluster.equals(EnvUtil.TEST)) {
             System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.TEST);
             return new String[] { EnvUtil.TEST };
