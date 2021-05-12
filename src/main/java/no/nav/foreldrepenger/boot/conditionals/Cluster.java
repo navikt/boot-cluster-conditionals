@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 public enum Cluster {
+    VTP(EnvUtil.VTP),
     TEST(EnvUtil.TEST),
     LOCAL(EnvUtil.LOCAL),
     DEV_SBS(EnvUtil.DEV_SBS),
@@ -132,6 +133,10 @@ public enum Cluster {
 
     public static Cluster[] local() {
         return new Cluster[] { LOCAL };
+    }
+
+    public static Cluster[] vtp() {
+        return new Cluster[] { VTP };
     }
 
 }

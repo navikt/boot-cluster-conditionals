@@ -25,6 +25,7 @@ public final class EnvUtil {
     public static final String DEV_SBS = DEV + SBS;
     public static final String PROD_FSS = PROD + FSS;
     public static final String DEV_FSS = DEV + FSS;
+    public static final String VTP = "VTP";
 
     private EnvUtil() {
 
@@ -32,6 +33,10 @@ public final class EnvUtil {
 
     public static boolean isDevOrLocal(Environment env) {
         return isLocal(env) || isDev(env);
+    }
+
+    public static boolean isVTP(Environment env) {
+        return env.acceptsProfiles(Profiles.of(VTP));
     }
 
     public static boolean isDev(Environment env) {
