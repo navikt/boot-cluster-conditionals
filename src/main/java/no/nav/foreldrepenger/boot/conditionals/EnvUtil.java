@@ -25,7 +25,7 @@ public final class EnvUtil {
     public static final String DEV_SBS = DEV + SBS;
     public static final String PROD_FSS = PROD + FSS;
     public static final String DEV_FSS = DEV + FSS;
-    public static final String VTP = "VTP";
+    public static final String VTP = "vtp";
 
     private EnvUtil() {
 
