@@ -85,7 +85,7 @@ public enum Cluster {
             return new String[] { DEV, EnvUtil.DEV_GCP,EnvUtil.GCP };
         }
         if (cluster.equals(EnvUtil.PROD_GCP)) {
-            return new String[] { PROD, EnvUtil.PROD_GCP,,EnvUtil.GCP };
+            return new String[] { PROD, EnvUtil.PROD_GCP,EnvUtil.GCP };
         }
         if (cluster.equals(EnvUtil.PROD_SBS)) {
             return new String[] { PROD, EnvUtil.PROD_SBS };
