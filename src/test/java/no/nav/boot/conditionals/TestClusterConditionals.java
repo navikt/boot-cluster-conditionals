@@ -1,7 +1,7 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
-import static no.nav.foreldrepenger.boot.conditionals.Cluster.NAIS_CLUSTER_NAME;
-import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV_FSS;
+import static no.nav.boot.conditionals.Cluster.NAIS_CLUSTER_NAME;
+import static no.nav.boot.conditionals.EnvUtil.DEV_FSS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

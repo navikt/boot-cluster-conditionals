@@ -1,6 +1,6 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
-import static no.nav.foreldrepenger.boot.conditionals.Cluster.local;
+import static no.nav.boot.conditionals.Cluster.local;
 
 import org.springframework.core.type.AnnotatedTypeMetadata;
 

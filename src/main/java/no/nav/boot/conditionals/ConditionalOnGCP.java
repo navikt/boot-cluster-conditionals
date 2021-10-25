@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-@Conditional(OnDevOrLocalCondition.class)
-public @interface ConditionalOnDevOrLocal {
+@Conditional(OnGCPCondition.class)
+public @interface ConditionalOnGCP {
 
 }

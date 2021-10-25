@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

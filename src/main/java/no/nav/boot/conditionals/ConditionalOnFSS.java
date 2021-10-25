@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(OnDevCondition.class)
 @Component
-public @interface ConditionalOnDev {
+@Conditional(OnFSSCondition.class)
+public @interface ConditionalOnFSS {
 
 }

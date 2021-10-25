@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import static org.springframework.boot.autoconfigure.condition.ConditionMessage.forCondition;
 import static org.springframework.boot.autoconfigure.condition.ConditionOutcome.match;

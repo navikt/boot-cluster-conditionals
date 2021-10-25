@@ -1,4 +1,4 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,11 +9,11 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
-@Target(ElementType.TYPE)
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(OnK8sCondition.class)
 @Component
-public @interface ConditionalOnK8s {
+@Conditional(OnLocalCondition.class)
+public @interface ConditionalOnLocal {
 
 }

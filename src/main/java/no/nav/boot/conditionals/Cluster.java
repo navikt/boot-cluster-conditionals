@@ -1,8 +1,6 @@
-package no.nav.foreldrepenger.boot.conditionals;
+package no.nav.boot.conditionals;
 
 import static java.lang.System.getenv;
-import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.DEV;
-import static no.nav.foreldrepenger.boot.conditionals.EnvUtil.PROD;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -79,22 +77,22 @@ public enum Cluster {
             return new String[] { EnvUtil.TEST };
         }
         if (cluster.equals(EnvUtil.DEV_SBS)) {
-            return new String[] { DEV, EnvUtil.DEV_SBS };
+            return new String[] { EnvUtil.DEV, EnvUtil.DEV_SBS };
         }
         if (cluster.equals(EnvUtil.DEV_GCP)) {
-            return new String[] { DEV, EnvUtil.DEV_GCP,EnvUtil.GCP };
+            return new String[] { EnvUtil.DEV, EnvUtil.DEV_GCP,EnvUtil.GCP };
         }
         if (cluster.equals(EnvUtil.PROD_GCP)) {
-            return new String[] { PROD, EnvUtil.PROD_GCP,EnvUtil.GCP };
+            return new String[] { EnvUtil.PROD, EnvUtil.PROD_GCP,EnvUtil.GCP };
         }
         if (cluster.equals(EnvUtil.PROD_SBS)) {
-            return new String[] { PROD, EnvUtil.PROD_SBS };
+            return new String[] { EnvUtil.PROD, EnvUtil.PROD_SBS };
         }
         if (cluster.equals(EnvUtil.DEV_FSS)) {
-            return new String[] { DEV, EnvUtil.DEV_FSS };
+            return new String[] { EnvUtil.DEV, EnvUtil.DEV_FSS };
         }
         if (cluster.equals(EnvUtil.PROD_FSS)) {
-            return new String[] { PROD, EnvUtil.PROD_FSS };
+            return new String[] { EnvUtil.PROD, EnvUtil.PROD_FSS };
         }
         return new String[] { cluster };
     }
