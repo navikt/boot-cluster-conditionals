@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.nav.boot</groupId>
     <artifactId>boot-conditionals</artifactId>
-    <version>2.0.12-SNAPSHOT</version>
+    <version>2.0.12</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -32,7 +32,7 @@
         <connection>scm:git:https://github.com/navikt/boot-cluster-conditionals.git</connection>
         <developerConnection>scm:git:https://github.com/navikt/boot-cluster-conditionals.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>boot-conditionals-2.0.12</tag>
     </scm>
     <properties>
         <maven.javadoc.skip>true</maven.javadoc.skip>
