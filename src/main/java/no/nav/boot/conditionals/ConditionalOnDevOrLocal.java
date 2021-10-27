@@ -9,8 +9,12 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Target( {TYPE, METHOD})
+@Retention(RUNTIME)
 @Documented
 @Component
 @Conditional(OnDevOrLocalCondition.class)
