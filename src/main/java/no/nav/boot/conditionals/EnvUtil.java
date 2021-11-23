@@ -9,8 +9,8 @@ public final class EnvUtil {
 
     public static final Marker CONFIDENTIAL = MarkerFactory.getMarker("CONFIDENTIAL");
 
-    private static final String FSS = "fss";
-    private static final String SBS = "sbs";
+    public static final String FSS = "fss";
+    public static final String SBS = "sbs";
     public static final String LOCAL = "local";
     public static final String DEFAULT = "default";
 

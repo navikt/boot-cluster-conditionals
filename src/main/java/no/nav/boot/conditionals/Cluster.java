@@ -77,7 +77,7 @@ public enum Cluster {
             return new String[] { EnvUtil.TEST };
         }
         if (cluster.equals(EnvUtil.DEV_SBS)) {
-            return new String[] { EnvUtil.DEV, EnvUtil.DEV_SBS };
+            return new String[] { EnvUtil.DEV, EnvUtil.DEV_SBS, EnvUtil.SBS };
         }
         if (cluster.equals(EnvUtil.DEV_GCP)) {
             return new String[] { EnvUtil.DEV, EnvUtil.DEV_GCP,EnvUtil.GCP };
@@ -86,13 +86,13 @@ public enum Cluster {
             return new String[] { EnvUtil.PROD, EnvUtil.PROD_GCP,EnvUtil.GCP };
         }
         if (cluster.equals(EnvUtil.PROD_SBS)) {
-            return new String[] { EnvUtil.PROD, EnvUtil.PROD_SBS };
+            return new String[] { EnvUtil.PROD, EnvUtil.PROD_SBS,  EnvUtil.SBS };
         }
         if (cluster.equals(EnvUtil.DEV_FSS)) {
-            return new String[] { EnvUtil.DEV, EnvUtil.DEV_FSS };
+            return new String[] { EnvUtil.DEV, EnvUtil.DEV_FSS, EnvUtil.FSS };
         }
         if (cluster.equals(EnvUtil.PROD_FSS)) {
-            return new String[] { EnvUtil.PROD, EnvUtil.PROD_FSS };
+            return new String[] { EnvUtil.PROD, EnvUtil.PROD_FSS, EnvUtil.FSS };
         }
         return new String[] { cluster };
     }
