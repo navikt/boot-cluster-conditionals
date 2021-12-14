@@ -35,6 +35,8 @@
         <tag>HEAD</tag>
     </scm>
     <properties>
+        <sonar.organization>navit</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
     <build>
