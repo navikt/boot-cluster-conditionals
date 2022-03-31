@@ -28,7 +28,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 17
-      
+          distribution: 'adopt'
+
       - name: Hent tag    
         run: echo "TAG=$(date +%Y.%m.%d.%H%M%S)-$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
        
