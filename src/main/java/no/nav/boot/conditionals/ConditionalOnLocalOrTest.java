@@ -1,9 +1,7 @@
 package no.nav.boot.conditionals;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Conditional;
@@ -17,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Component
-@Conditional(OnLocalCondition.class)
-public @interface ConditionalOnLocal {
+@Conditional(OnLocalOrTestCondition.class)
+public @interface ConditionalOnLocalOrTest {
 
 }

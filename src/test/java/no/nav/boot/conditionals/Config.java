@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class Config {
 
-    @ConditionalOnLocal
+    @ConditionalOnLocalOrTest
     @Bean
     public String local() {
         return "local";

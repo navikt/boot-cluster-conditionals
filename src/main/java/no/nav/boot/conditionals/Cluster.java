@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 public enum Cluster {
-    VTP(EnvUtil.VTP),
     TEST(EnvUtil.TEST),
     LOCAL(EnvUtil.LOCAL),
     DEV_SBS(EnvUtil.DEV_SBS),
@@ -117,24 +116,21 @@ public enum Cluster {
         return new Cluster[] { DEV_FSS, PROD_FSS };
     }
 
+    public static Cluster[] gcpClusters() {
+        return new Cluster[] { DEV_GCP, PROD_GCP };
+    }
+
     public static Cluster[] notProdClusters() {
-        return new Cluster[] { DEV_SBS, DEV_GCP, DEV_FSS, LOCAL };
+        return new Cluster[] { DEV_SBS, DEV_GCP, DEV_FSS, LOCAL, TEST };
     }
 
     public static Cluster[] k8sClusters() {
         return new Cluster[] { DEV_SBS, DEV_FSS, DEV_GCP, PROD_FSS, PROD_SBS, PROD_GCP };
     }
 
-    public static Cluster[] gcpClusters() {
-        return new Cluster[] { DEV_GCP, PROD_GCP };
+    public static Cluster[] localOrTest() {
+        return new Cluster[] { LOCAL, TEST };
     }
 
-    public static Cluster[] local() {
-        return new Cluster[] { LOCAL };
-    }
-
-    public static Cluster[] vtp() {
-        return new Cluster[] { VTP };
-    }
 
 }
