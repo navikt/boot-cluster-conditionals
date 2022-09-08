@@ -43,41 +43,33 @@ enum class Cluster(private val clusterName: String) {
                  arrayOf(EnvUtil.TEST)
                }
                 EnvUtil.DEV_SBS ->  arrayOf(EnvUtil.DEV, EnvUtil.DEV_SBS, EnvUtil.SBS)
-                EnvUtil.DEV_GCP ->   arrayOf(EnvUtil.DEV, EnvUtil.DEV_GCP, EnvUtil.GCP)
+                EnvUtil.DEV_GCP ->  arrayOf(EnvUtil.DEV, EnvUtil.DEV_GCP, EnvUtil.GCP)
                 EnvUtil.PROD_GCP -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_GCP, EnvUtil.GCP)
                 EnvUtil.PROD_SBS -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_SBS, EnvUtil.SBS)
                 EnvUtil.DEV_FSS -> arrayOf(EnvUtil.DEV, EnvUtil.DEV_FSS, EnvUtil.FSS)
                 EnvUtil.PROD_FSS -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_FSS, EnvUtil.FSS)
                 null -> {
-                    LOG.info("NAIS cluster ikke detektert, antar {}", LOCAL)
+                    LOG.info("NAIS cluster ikke detektert, antar ${LOCAL}")
                     System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL)
                     arrayOf(EnvUtil.LOCAL)
                 }
                 else -> arrayOf(cluster)
             }
 
-        @JvmStatic
         fun prodClusters() = arrayOf(PROD_SBS, PROD_GCP, PROD_FSS)
 
-        @JvmStatic
         fun devClusters() = arrayOf(DEV_SBS, DEV_GCP, DEV_FSS)
 
-        @JvmStatic
         fun sbsClusters() = arrayOf(DEV_SBS, PROD_SBS)
 
-        @JvmStatic
         fun fssClusters() = arrayOf(DEV_FSS, PROD_FSS)
 
-        @JvmStatic
         fun gcpClusters() = arrayOf(DEV_GCP, PROD_GCP)
 
-        @JvmStatic
         fun notProdClusters() = arrayOf(DEV_SBS, DEV_GCP, DEV_FSS, LOCAL, TEST)
 
-        @JvmStatic
         fun k8sClusters() = arrayOf(DEV_SBS, DEV_FSS, DEV_GCP, PROD_FSS, PROD_SBS, PROD_GCP)
 
-        @JvmStatic
         fun localOrTest() = arrayOf(LOCAL, TEST)
     }
 }
