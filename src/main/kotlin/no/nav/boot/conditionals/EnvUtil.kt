@@ -30,6 +30,9 @@ object EnvUtil {
 
     fun isDev(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_SBS, DEV_GCP, DEV_FSS))
 
+    fun isProd(env: Environment) = env.acceptsProfiles(Profiles.of(PROD_SBS, PROD_FSS,PROD_GCP,))
+
+
     fun isGcp(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_GCP, PROD_GCP))
 
     fun isLocal(env: Environment?) = env == null || env.acceptsProfiles(Profiles.of(LOCAL))
