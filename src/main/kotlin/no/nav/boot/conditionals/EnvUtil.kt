@@ -19,7 +19,6 @@ object EnvUtil {
     val PROD_SBS = join(PROD, SBS)
     val DEV_SBS = join(DEV, SBS)
     val PROD_FSS = join(PROD, FSS)
-    @kotlin.jvm.JvmField
     val DEV_FSS = join(DEV, FSS)
     const val VTP = "vtp"
     private fun join(env: String, cluster: String) = "$env-$cluster"
@@ -30,7 +29,7 @@ object EnvUtil {
 
     fun isDev(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_SBS, DEV_GCP, DEV_FSS))
 
-    fun isProd(env: Environment) = env.acceptsProfiles(Profiles.of(PROD_SBS, PROD_FSS,PROD_GCP,))
+    fun isProd(env: Environment) = env.acceptsProfiles(Profiles.of(PROD_SBS, PROD_FSS,PROD_GCP))
 
 
     fun isGcp(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_GCP, PROD_GCP))

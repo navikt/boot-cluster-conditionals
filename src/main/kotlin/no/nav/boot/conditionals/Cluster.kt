@@ -15,7 +15,7 @@ enum class Cluster(private val clusterName: String) {
 
     fun clusterName() = clusterName
     fun isActive(env: Environment)= isClusterActive(env)
-    fun isClusterActive(env: Environment) = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL) == clusterName
+    private fun isClusterActive(env: Environment) = env.getProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL) == clusterName
 
     companion object {
         const val NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME"
