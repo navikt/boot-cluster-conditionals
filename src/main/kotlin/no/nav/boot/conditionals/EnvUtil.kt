@@ -23,16 +23,26 @@ object EnvUtil {
     const val VTP = "vtp"
     private fun join(env: String, cluster: String) = "$env-$cluster"
 
+    @JvmStatic
     fun isDevOrLocal(env: Environment) = isLocal(env) || isDev(env)
 
+    @JvmStatic
     fun isVTP(env: Environment) = env.acceptsProfiles(Profiles.of(VTP))
 
+    @JvmStatic
     fun isDev(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_SBS, DEV_GCP, DEV_FSS))
 
+    @JvmStatic
     fun isProd(env: Environment) = env.acceptsProfiles(Profiles.of(PROD_SBS, PROD_FSS,PROD_GCP))
 
-
+    @JvmStatic
     fun isGcp(env: Environment) = env.acceptsProfiles(Profiles.of(DEV_GCP, PROD_GCP))
 
+    @JvmStatic
     fun isLocal(env: Environment?) = env == null || env.acceptsProfiles(Profiles.of(LOCAL))
+
 }
+fun Environment.isDev() = EnvUtil.isDev(this)
+fun Environment.isProd() = EnvUtil.isProd(this)
+fun Environment.isGcp() = EnvUtil.isGcp(this)
+fun Environment.isLocal() = EnvUtil.isLocal(this)

@@ -1,6 +1,8 @@
 package no.nav.boot.conditionals
 
+import java.lang.System.*
 import org.slf4j.LoggerFactory
+import org.slf4j.LoggerFactory.*
 import org.springframework.core.env.Environment
 
 enum class Cluster(private val clusterName: String) {
@@ -21,25 +23,29 @@ enum class Cluster(private val clusterName: String) {
         const val NAIS_CLUSTER_NAME = "NAIS_CLUSTER_NAME"
         const val NAIS_NAMESPACE_NAME = "NAIS_NAMESPACE"
         const val NAIS_IMAGE_NAME = "NAIS_APP_IMAGE"
-        private val LOG = LoggerFactory.getLogger(Cluster::class.java)
+        private val LOG = getLogger(Cluster::class.java)
+        @JvmStatic
         fun currentNamespace() = namespace() ?: "default"
+
+        @JvmStatic
 
         fun currentCluster() =
             values().firstOrNull() { it.clusterName == cluster() } ?: LOCAL
 
 
+        @JvmStatic
         fun profiler()  = profilerFraCluster(cluster())
 
 
-        private fun cluster() = System.getenv(NAIS_CLUSTER_NAME)
+        private fun cluster() = getenv(NAIS_CLUSTER_NAME)
 
 
-        private fun namespace() = System.getenv(NAIS_NAMESPACE_NAME)
+        private fun namespace() = getenv(NAIS_NAMESPACE_NAME)
 
 
         private fun profilerFraCluster(cluster: String?) =
             when(cluster) {
-                EnvUtil.TEST -> { System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.TEST)
+                EnvUtil.TEST -> { setProperty(NAIS_CLUSTER_NAME, EnvUtil.TEST)
                  arrayOf(EnvUtil.TEST)
                }
                 EnvUtil.DEV_SBS ->  arrayOf(EnvUtil.DEV, EnvUtil.DEV_SBS, EnvUtil.SBS)
@@ -50,7 +56,7 @@ enum class Cluster(private val clusterName: String) {
                 EnvUtil.PROD_FSS -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_FSS, EnvUtil.FSS)
                 null -> {
                     LOG.info("NAIS cluster ikke detektert, antar ${LOCAL}")
-                    System.setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL)
+                    setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL)
                     arrayOf(EnvUtil.LOCAL)
                 }
                 else -> arrayOf(cluster)

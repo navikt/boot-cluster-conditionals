@@ -10,11 +10,12 @@ import org.springframework.core.type.AnnotatedTypeMetadata
 open class OnClusterCondition : SpringBootCondition() {
     override fun getMatchOutcome(ctx: ConditionContext, md: AnnotatedTypeMetadata) =
         with(clusters(md)) {
-            val message = forCondition(ConditionalOnClusters::class.java)
-            filter { it.isActive(ctx.environment) }
-                .map { match(message.foundExactly(it.clusterName())) }
-                .firstOrNull()
-                ?: noMatch(message.because(contentToString()))
+            with(forCondition(ConditionalOnClusters::class.java)) {
+                filter { it.isActive(ctx.environment) }
+                    .map { match(foundExactly(it.clusterName())) }
+                    .firstOrNull()
+                    ?: noMatch(because(contentToString()))
+            }
         }
 
     protected open fun clusters(md: AnnotatedTypeMetadata) = md.getAnnotationAttributes(ConditionalOnClusters::class.java.name)?.get("clusters") as Array<Cluster>
