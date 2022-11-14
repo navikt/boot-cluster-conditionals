@@ -42,7 +42,3 @@ object EnvUtil {
     fun isLocal(env: Environment?) = env == null || env.acceptsProfiles(Profiles.of(LOCAL))
 
 }
-fun Environment.isDev() = EnvUtil.isDev(this)
-fun Environment.isProd() = EnvUtil.isProd(this)
-fun Environment.isGcp() = EnvUtil.isGcp(this)
-fun Environment.isLocal() = EnvUtil.isLocal(this)
