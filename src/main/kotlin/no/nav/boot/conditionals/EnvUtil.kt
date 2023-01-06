@@ -5,6 +5,7 @@ import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
 
 object EnvUtil {
+    @JvmStatic
     val CONFIDENTIAL = MarkerFactory.getMarker("CONFIDENTIAL")
     const val FSS = "fss"
     const val SBS = "sbs"
