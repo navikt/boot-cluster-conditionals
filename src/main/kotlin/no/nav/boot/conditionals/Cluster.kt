@@ -28,11 +28,11 @@ enum class Cluster(private val clusterName: String) {
         fun currentNamespace() = namespace() ?: "default"
 
         @JvmStatic
-
         fun currentCluster() =
             values().firstOrNull() { it.clusterName == cluster() } ?: LOCAL
 
-
+        @JvmStatic
+        val currentCluster = currentCluster()
         @JvmStatic
         fun profiler()  = profilerFraCluster(cluster())
 
@@ -61,6 +61,17 @@ enum class Cluster(private val clusterName: String) {
                 }
                 else -> arrayOf(cluster)
             }
+
+        fun isProd() = currentCluster() in prodClusters()
+
+        fun isNotProd() = currentCluster() in notProdClusters()
+
+        fun isDev() = currentCluster() in devClusters()
+
+        fun isGCP() = currentCluster() in gcpClusters()
+
+        fun isFss() = currentCluster() in fssClusters()
+
 
         fun prodClusters() = arrayOf(PROD_SBS, PROD_GCP, PROD_FSS)
 
