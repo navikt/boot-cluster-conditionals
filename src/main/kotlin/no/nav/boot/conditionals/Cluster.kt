@@ -37,28 +37,26 @@ enum class Cluster(private val clusterName: String) {
         fun profiler()  = profilerFraCluster(cluster())
 
 
-        private fun cluster() = getenv(NAIS_CLUSTER_NAME)
+        private fun cluster() = getenv(NAIS_CLUSTER_NAME) ?: EnvUtil.LOCAL
 
 
-        private fun namespace() = getenv(NAIS_NAMESPACE_NAME)
+        private fun namespace() = getenv(NAIS_NAMESPACE_NAME) ?: EnvUtil.LOCAL
 
 
-        private fun profilerFraCluster(cluster: String?) =
+        private fun profilerFraCluster(cluster: String) =
             when(cluster) {
                 EnvUtil.TEST -> { setProperty(NAIS_CLUSTER_NAME, EnvUtil.TEST)
                  arrayOf(EnvUtil.TEST)
                }
+                EnvUtil.LOCAL -> { setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL)
+                    arrayOf(EnvUtil.LOCAL)
+                }
                 EnvUtil.DEV_SBS ->  arrayOf(EnvUtil.DEV, EnvUtil.DEV_SBS, EnvUtil.SBS)
                 EnvUtil.DEV_GCP ->  arrayOf(EnvUtil.DEV, EnvUtil.DEV_GCP, EnvUtil.GCP)
                 EnvUtil.PROD_GCP -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_GCP, EnvUtil.GCP)
                 EnvUtil.PROD_SBS -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_SBS, EnvUtil.SBS)
                 EnvUtil.DEV_FSS -> arrayOf(EnvUtil.DEV, EnvUtil.DEV_FSS, EnvUtil.FSS)
                 EnvUtil.PROD_FSS -> arrayOf(EnvUtil.PROD, EnvUtil.PROD_FSS, EnvUtil.FSS)
-                null -> {
-                    LOG.info("NAIS cluster ikke detektert, antar ${LOCAL}")
-                    setProperty(NAIS_CLUSTER_NAME, EnvUtil.LOCAL)
-                    arrayOf(EnvUtil.LOCAL)
-                }
                 else -> arrayOf(cluster)
             }
 
