@@ -6,8 +6,9 @@ on:
 
 jobs:
   publish-release:
+    permissions:
+      packages: write
     runs-on: ubuntu-latest
-
     steps:
             
       - name: Checkout latest code
