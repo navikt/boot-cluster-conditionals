@@ -8,6 +8,8 @@ on:
 jobs:
   release-notes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Release Drafter
         uses: release-drafter/release-drafter@v6
