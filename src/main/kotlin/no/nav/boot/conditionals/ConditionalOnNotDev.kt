@@ -1,12 +1,13 @@
 package no.nav.boot.conditionals
 
-import org.springframework.stereotype.Service
-import java.lang.annotation.Inherited
+import org.springframework.context.annotation.Conditional
+import org.springframework.stereotype.Component
+import kotlin.annotation.AnnotationRetention.RUNTIME
+import kotlin.annotation.AnnotationTarget.*
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-@Inherited
+@Target(ANNOTATION_CLASS, CLASS, FUNCTION)
+@Retention(RUNTIME)
 @MustBeDocumented
-@Service
-@ConditionalOnClusters([Cluster.PROD_GCP, Cluster.PROD_FSS, Cluster.TEST, Cluster.LOCAL])
+@Component
+@Conditional(OnNotDevCondition::class)
 annotation class ConditionalOnNotDev

@@ -81,6 +81,8 @@ enum class Cluster(private val clusterName: String) {
 
         fun gcpClusters() = arrayOf(DEV_GCP, PROD_GCP)
 
+        fun notDevClusters() = arrayOf(PROD_SBS, PROD_GCP, PROD_FSS, LOCAL, TEST)
+
         fun notProdClusters() = arrayOf(DEV_SBS, DEV_GCP, DEV_FSS, LOCAL, TEST)
 
         fun k8sClusters() = arrayOf(DEV_SBS, DEV_FSS, DEV_GCP, PROD_FSS, PROD_SBS, PROD_GCP)
