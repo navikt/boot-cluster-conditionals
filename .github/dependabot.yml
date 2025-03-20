@@ -4,7 +4,8 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    open-pull-requests-limit: 10 
+    time: "09:25"
+  open-pull-requests-limit: 10 
 - package-ecosystem: maven
   directory: "/"
   schedule:
