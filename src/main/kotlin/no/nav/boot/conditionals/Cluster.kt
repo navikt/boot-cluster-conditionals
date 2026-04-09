@@ -29,7 +29,7 @@ enum class Cluster(private val clusterName: String) {
 
         @JvmStatic
         fun currentCluster() =
-            values().firstOrNull() { it.clusterName == cluster() } ?: LOCAL
+            entries.firstOrNull { it.clusterName == cluster() } ?: LOCAL
 
         @JvmStatic
         val currentCluster = currentCluster()
