@@ -3,24 +3,27 @@ tag-template: $NEXT_PATCH_VERSION
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 categories:
   - title: '🚀 Features'
-    labels:
-      - 'feature'
-      - 'enhancement'
+    when:
+      labels:
+        - 'feature'
+        - 'enhancement'
   - title: '⚠️ Breaking Changes'
-    labels:
-      - 'breaking'
+    when:
+      label: 'breaking'
   - title: '🐛 Bug Fixes'
-    labels:
-      - 'fix'
-      - 'bugfix'
-      - 'bug'
+    when:
+      labels:
+        - 'fix'
+        - 'bugfix'
+        - 'bug'
   - title: '🧰 Maintenance'
-    labels:
-      - 'chore'
+    when:
+      label: 'chore'
   - title: '⬆️ Dependency upgrades'
-    labels:
-      - 'bump'
-      - 'dependencies'
+    when:
+      labels:
+        - 'bump'
+        - 'dependencies'
 exclude-labels:
   - 'skip-changelog'
 template: |
