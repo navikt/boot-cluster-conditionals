@@ -24,8 +24,9 @@ categories:
       labels:
         - 'bump'
         - 'dependencies'
-exclude-labels:
-  - 'skip-changelog'
+  - type: 'pre-exclude'
+    when:
+      label: 'skip-changelog'
 template: |
   ## What's Changed
   $CHANGES
