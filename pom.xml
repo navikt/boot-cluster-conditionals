@@ -14,23 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -38,12 +22,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <scm>
@@ -55,8 +39,6 @@
     <properties>
         <java.version>27</java.version>
         <kotlin.version>2.4.21</kotlin.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
         <sonar.projectKey>navikt_boot-cluster-conditionals</sonar.projectKey>
         <sonar.organization>navikt</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -92,31 +74,16 @@
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>
-                        <plugin>jpa</plugin>
                     </compilerPlugins>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>26</jvmTarget>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-noarg</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-allopen</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <release>${java.version}</release>
-                </configuration>
             </plugin>
         </plugins>
     </build>
