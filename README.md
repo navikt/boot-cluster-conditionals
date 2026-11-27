@@ -38,3 +38,9 @@ public class BeanSomTrengerFunksjonalitet {
 }
 ~~~~
 
+## Dependabot
+
+Minor- og patch-oppdateringer fra Dependabot merges automatisk etter at
+`Bygg pull request` har fullført med vellykket bygg og tester. Bare den testede
+commiten kan merges. Major-oppdateringer og grupper som inneholder en
+major-oppdatering må merges manuelt. Gjeldende branch protection gjelder fortsatt.
