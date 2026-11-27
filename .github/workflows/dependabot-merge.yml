@@ -1,0 +1,75 @@
+name: Merge Dependabot updates
+
+on:
+  workflow_run:
+    workflows: ["Bygg pull request"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Find matching Dependabot pull request
+        id: pull-request
+        shell: bash
+        run: |
+          prs=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls")
+          matches=$(jq --arg sha "$HEAD_SHA" --arg repo "$GH_REPO" '
+            [.[] | select(
+              .state == "open" and
+              .draft == false and
+              .user.login == "dependabot[bot]" and
+              .head.sha == $sha and
+              .head.repo.full_name == $repo and
+              .base.repo.full_name == $repo
+            )]
+          ' <<< "$prs")
+          if [[ $(jq 'length' <<< "$matches") != 1 ]]; then
+            echo "No unique, open Dependabot pull request matches the tested commit."
+            exit 0
+          fi
+          echo "number=$(jq -r '.[0].number' <<< "$matches")" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Dependabot update types
+        if: steps.pull-request.outputs.number != ''
+        id: metadata
+        shell: bash
+        run: |
+          gh api "repos/$GH_REPO/commits/$HEAD_SHA" | ruby -rjson -ryaml -e '
+            commit = JSON.parse(STDIN.read)
+            unless commit.dig("author", "login") == "dependabot[bot]" &&
+                   commit.dig("commit", "verification", "verified") == true
+              abort "The tested commit is not a verified Dependabot commit."
+            end
+
+            message = commit.fetch("commit").fetch("message")
+            block = message.match(/^---\n(?<metadata>updated-dependencies:\n.*?)^\.\.\.$/m)
+            abort "Dependabot update metadata is missing." unless block
+
+            metadata = YAML.safe_load(block[:metadata])
+            dependencies = metadata.fetch("updated-dependencies")
+            allowed = %w[version-update:semver-minor version-update:semver-patch]
+            eligible = dependencies.is_a?(Array) && !dependencies.empty? &&
+              dependencies.all? { |dependency| allowed.include?(dependency.fetch("update-type")) }
+
+            puts "Skipping updates that are not exclusively minor or patch." unless eligible
+            File.open(ENV.fetch("GITHUB_OUTPUT"), "a") { |file| file.puts "eligible=#{eligible}" }
+          '
+
+      - name: Merge tested minor and patch updates
+        if: steps.metadata.outputs.eligible == 'true'
+        env:
+          PR_NUMBER: ${{ steps.pull-request.outputs.number }}
+        run: gh pr merge "$PR_NUMBER" --squash --match-head-commit "$HEAD_SHA"
