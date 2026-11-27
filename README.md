@@ -38,6 +38,12 @@ public class BeanSomTrengerFunksjonalitet {
 }
 ~~~~
 
+## Release
+
+Etter merge eller direkte push til `master` bygges og testes commiten. Bare når
+bygg, tester og publisering av Maven-artifaktet lykkes, publiseres en GitHub-release
+med neste patch-versjon og release-notater. Releasen peker på den testede commiten.
+
 ## Dependabot
 
 Minor- og patch-oppdateringer fra Dependabot merges automatisk etter at
