@@ -3,22 +3,33 @@ name: Bygg og deploy
 on:
   push:
     branches:
-      - master         # Push events on master branch
-    
+      - master
+
+concurrency:
+  group: release-master
+  cancel-in-progress: false
+
 jobs:
   release-notes:
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: read
+    outputs:
+      version: ${{ steps.drafter.outputs.tag_name }}
     steps:
       - name: Release Drafter
         uses: release-drafter/release-drafter@d1a19e60e81a7e650d00a7de9277f87e439117ea # v7.11.0
         id: drafter
+        with:
+          commitish: ${{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   build:
     permissions:
+      contents: read
       packages: write
     runs-on: ubuntu-latest
     steps:
@@ -42,4 +53,31 @@ jobs:
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-artifact:
+    needs: release-notes
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/release.yml
+    with:
+      version: ${{ needs.release-notes.outputs.version }}
+      ref: ${{ github.sha }}
+    secrets: inherit
+
+  publish-release:
+    needs: [release-notes, publish-artifact]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Publish release
+        uses: release-drafter/release-drafter@d1a19e60e81a7e650d00a7de9277f87e439117ea # v7.11.0
+        with:
+          version: ${{ needs.release-notes.outputs.version }}
+          commitish: ${{ github.sha }}
+          publish: true
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
